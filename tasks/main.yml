@@ -27,22 +27,22 @@
 
 - name: make sure SSL certificate is existing and secured
   copy:
-    src:    '{{ item.src }}'
-    path:   '{{ item.path }}'
-    owner:  root
-    group:  root
-    mode:   '{{ item.mode }}'
+    src: '{{ item.src }}'
+    path: '{{ item.path }}'
+    owner: root
+    group: root
+    mode: '{{ item.mode }}'
   no_log: true
   with_items:
-    - src:  '{{ ssl_certificate }}'
+    - src: '{{ ssl_certificate }}'
       path: /etc/vault/vault.crt
       mode: '0644'
-    - src:  '{{ ssl_private_key }}'
+    - src: '{{ ssl_private_key }}'
       path: /etc/vault/vault.key
       mode: '0600'
 
 - name: deploy vault.service
-  copy: 
+  copy:
     src: vault.service
     dest: /etc/systemd/system/vault.service
     mode: 0755
