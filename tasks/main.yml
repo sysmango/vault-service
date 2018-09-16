@@ -1,2 +1,56 @@
 ---
 # tasks file for vault-service
+
+- name: Prmot for details
+  vars_prompt:
+    ssl_certificate: Enter path to SSL certificate
+    ssl_private_key: Enter path to SSL private key
+
+- name: Unarchive HashiCorp Vault
+  unarchive:
+    src: https://releases.hashicorp.com/vault/0.11.1/vault_0.11.1_linux_arm.zip
+    dest: /tmp/vault
+    remote_src: yes
+
+- name: Deploy vault to /usr/local/sbin
+  copy:
+    src: /tmp/vault
+    dest: /usr/local/bin/vault
+    mode: 0644
+    remote_src: yes
+
+- name: make sure /etc/vault exits
+  file:
+    path: /etc/vault
+    state: directory
+    mode: 0755
+
+- name: make sure SSL certificate is existing and secured
+  copy:
+    src:    '{{ item.src }}'
+    path:   '{{ item.path }}'
+    owner:  root
+    group:  root
+    mode:   '{{ item.mode }}'
+  no_log: true
+  with_items:
+    - src:  '{{ ssl_certificate }}'
+      path: /etc/vault/vault.crt
+      mode: '0644'
+    - src:  '{{ ssl_private_key }}'
+      path: /etc/vault/vault.key
+      mode: '0600'
+
+- name: deploy vault.service
+  copy: 
+    src: vault.service
+    dest: /etc/systemd/system/vault.service
+    mode: 0755
+
+- name: enable vault.service
+  systemd:
+    name: vault.service
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    state: started

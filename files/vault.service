@@ -1,0 +1,14 @@
+[Unit]
+Description=vault server
+Requires=network-online.target
+After=network-online.target nfs-client.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/vault
+Restart=on-failure
+ExecStart=/usr/local/sbin/vault server -config /srv/nfs/vault/config/vault.json
+ExecStop=/usr/local/sbin/vault step-down
+
+[Install]
+WantedBy=multi-user.target
+
