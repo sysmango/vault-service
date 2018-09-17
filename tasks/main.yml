@@ -3,12 +3,11 @@
 - name: Unarchive HashiCorp Vault
   unarchive:
     src: https://releases.hashicorp.com/vault/0.11.1/vault_0.11.1_linux_arm.zip
-    dest: /tmp/vault
-    remote_src: yes
+    dest: /tmp
 
 - name: Deploy vault to /usr/local/sbin
   copy:
-    src: /tmp/vault
+    src: /tmp/vault*
     dest: /usr/local/bin/vault
     mode: 0644
     remote_src: yes
