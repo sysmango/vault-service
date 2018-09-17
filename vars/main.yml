@@ -1,6 +1,11 @@
 ---
-vars_prompt:
-  - name: "ssl_certificate"
-    prompt: "Enter path to SSL certificate"
-  - name: "ssl_private_key"
-    prompt: "Enter path to SSL private key"
+- hosts: all
+
+  vars:
+    from: "camelot"
+
+  vars_prompt:
+    - name: "ssl_certificate"
+      prompt: "Enter path to SSL certificate"
+    - name: "ssl_private_key"
+      prompt: "Enter path to SSL private key"
