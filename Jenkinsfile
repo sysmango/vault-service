@@ -129,7 +129,7 @@ pipeline {
             }
             stage('Create archive and upload') {
                   steps{
-                        zip archive: true, glob: '', zipFile: 'vault-service.tar.gz'
+                        zip archive: true, dir: '', glob: '', zipFile: 'vault-service.zip'
                         nexusArtifactUploader(
                               nexusVersion: 'nexus3',
                               protocol: 'http',
@@ -141,8 +141,8 @@ pipeline {
                               artifacts: [
                                     [artifactId: projectName,
                                     classifier: '',
-                                    file: 'vault-service.tar.gz',
-                                    type: 'tar.gz']
+                                    file: 'vault-service.zip',
+                                    type: 'zip']
                               ]
                         )
                   }
