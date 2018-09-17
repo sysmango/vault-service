@@ -127,18 +127,53 @@ pipeline {
                   }                  
                 }
             }
+            stage('Create archive and upload') {
+                  steps{
+                        zip archive: true, dir: '', glob: '', zipFile: 'vault-service.zip'
+                        nexusArtifactUploader(
+                              nexusVersion: 'nexus3',
+                              protocol: 'http',
+                              nexusUrl: 'nexus.sysmango.net',
+                              groupId: 'production',
+                              version: '1.0.0.$BUILD_NUMBER',
+                              repository: 'ansible',
+                              credentialsId: 'nexus-creds',
+                              artifacts: [
+                                    [artifactId: 'vault-service',
+                                    classifier: '',
+                                    file: 'vault-service.zip',
+                                    type: 'zip']
+                              ]
+                        )
+                        nexusArtifactUploader(
+                              nexusVersion: 'nexus3',
+                              protocol: 'http',
+                              nexusUrl: 'nexus.sysmango.net',
+                              groupId: 'production',
+                              version: 'latest',
+                              repository: 'ansible',
+                              credentialsId: 'nexus-creds',
+                              artifacts: [
+                                    [artifactId: 'vault-service',
+                                    classifier: '',
+                                    file: 'vault-service.zip',
+                                    type: 'zip']
+                              ]
+                        )
+                  }
+            }
       }
       post { 
         unstable { 
             echo 'Todo send a message to slack when pipeline is unstable!'
+            githubNotify description: 'Build is unstable',  status: 'FAILURE'
         }
         failure { 
             echo 'Todo send a message to slack when pipeline fails!'
+            githubNotify description: 'Build failed',  status: 'FAILURE'
         }
-        always { 
-            echo 'Thank you I have been your Jenkins pipeline today, as a worker in the service industry any and all gratuities are welcome!'
+        success {
+              githubNotify description: 'Build successful',  status: 'SUCCESS'
         }
     }
 }
-
-
