@@ -135,7 +135,7 @@ pipeline {
                               protocol: 'http',
                               nexusUrl: 'nexus.sysmango.net',
                               groupId: 'production',
-                              version: version,
+                              version: currentBuild,
                               repository: 'ansible',
                               credentialsId: 'nexus-creds',
                               artifacts: [
