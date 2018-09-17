@@ -135,11 +135,11 @@ pipeline {
                               protocol: 'http',
                               nexusUrl: 'nexus.sysmango.net',
                               groupId: 'production',
-                              version: currentBuild,
+                              version: '1.0.0.$BUILD_NUMBER',
                               repository: 'ansible',
                               credentialsId: 'nexus-creds',
                               artifacts: [
-                                    [artifactId: projectName,
+                                    [artifactId: 'vault-service',
                                     classifier: '',
                                     file: 'vault-service.zip',
                                     type: 'zip']
