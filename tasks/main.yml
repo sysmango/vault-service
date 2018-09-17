@@ -8,10 +8,11 @@
   unarchive:
     src: /tmp/vault_0.11.1_linux_amd64.zip
     dest: /tmp
+    remote_src: yes
 
 - name: Deploy vault to /usr/local/sbin
   copy:
-    src: /tmp/vault*
+    src: /tmp/vault
     dest: /usr/local/bin/vault
     mode: 0644
     remote_src: yes
