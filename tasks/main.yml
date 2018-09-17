@@ -1,6 +1,6 @@
 ---
 - name: Download HashiCorp Vault
-  get_url: 
+  get_url:
     url: https://releases.hashicorp.com/vault/0.11.1/vault_0.11.1_linux_amd64.zip
     dest: /tmp/vault_0.11.1_linux_amd64.zip
 
