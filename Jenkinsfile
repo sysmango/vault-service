@@ -127,6 +127,26 @@ pipeline {
                   }                  
                 }
             }
+            stage('Create archive and upload') {
+                  steps{
+                        zip archive: true, glob: '', zipFile: 'vault-service.tar.gz'
+                        nexusArtifactUploader(
+                              nexusVersion: 'nexus3',
+                              protocol: 'http',
+                              nexusUrl: 'nexus.sysmango.net',
+                              groupId: 'production',
+                              version: version,
+                              repository: 'ansible',
+                              credentialsId: 'nexus-creds',
+                              artifacts: [
+                                    [artifactId: projectName,
+                                    classifier: '',
+                                    file: 'vault-service.tar.gz',
+                                    type: 'tar.gz']
+                              ]
+                        )
+                  }
+            }
       }
       post { 
         unstable { 
@@ -137,22 +157,6 @@ pipeline {
         }
         always { 
             echo 'Thank you I have been your Jenkins pipeline today, as a worker in the service industry any and all gratuities are welcome!'
-            zip archive: true, glob: '', zipFile: 'vault-service.tar.gz'
-            nexusArtifactUploader(
-               nexusVersion: 'nexus3',
-               protocol: 'http',
-               nexusUrl: 'nexus.sysmango.net',
-               groupId: 'production',
-               version: version,
-               repository: 'ansible',
-               credentialsId: 'nexus-creds',
-               artifacts: [
-                   [artifactId: projectName,
-                    classifier: '',
-                    file: 'vault-service.tar.gz',
-                    type: 'tar.gz']
-               ]
-            )
         }
     }
 }
