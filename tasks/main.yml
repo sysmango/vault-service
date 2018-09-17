@@ -1,7 +1,6 @@
 ---
-# tasks file for vault-service
 
-- name: Prmot for details
+- name: Prompt for details
   vars_prompt:
     ssl_certificate: Enter path to SSL certificate
     ssl_private_key: Enter path to SSL private key

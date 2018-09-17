@@ -145,6 +145,21 @@ pipeline {
                                     type: 'zip']
                               ]
                         )
+                        nexusArtifactUploader(
+                              nexusVersion: 'nexus3',
+                              protocol: 'http',
+                              nexusUrl: 'nexus.sysmango.net',
+                              groupId: 'production',
+                              version: 'latest',
+                              repository: 'ansible',
+                              credentialsId: 'nexus-creds',
+                              artifacts: [
+                                    [artifactId: 'vault-service',
+                                    classifier: '',
+                                    file: 'vault-service.zip',
+                                    type: 'zip']
+                              ]
+                        )
                   }
             }
       }
