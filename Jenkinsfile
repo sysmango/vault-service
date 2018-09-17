@@ -151,14 +151,14 @@ pipeline {
       post { 
         unstable { 
             echo 'Todo send a message to slack when pipeline is unstable!'
+            githubNotify description: 'Build is unstable',  status: 'FAILURE'
         }
         failure { 
             echo 'Todo send a message to slack when pipeline fails!'
+            githubNotify description: 'Build failed',  status: 'FAILURE'
         }
-        always { 
-            echo 'Thank you I have been your Jenkins pipeline today, as a worker in the service industry any and all gratuities are welcome!'
+        success {
+              githubNotify description: 'Build successful',  status: 'SUCCESS'
         }
     }
 }
-
-
