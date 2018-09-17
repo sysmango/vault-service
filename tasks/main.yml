@@ -6,6 +6,7 @@
     dest: /tmp/vault_0.11.1_linux_amd64.zip
 
 - name: Unarchive HashiCorp Vault
+  connection: local
   unarchive:
     src: /tmp/vault_0.11.1_linux_amd64.zip
     dest: /tmp
