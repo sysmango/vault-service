@@ -1,5 +1,8 @@
 ---
-- hosts: vault
+- hosts: all
+
+  vars:
+    from: "camelot"
 
   vars_prompt:
     - name: "ssl_certificate"
