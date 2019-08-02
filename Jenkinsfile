@@ -8,6 +8,7 @@ pipeline {
     // git config --global http.sslVerify false
     // sudo curl -fsSL get.docker.com | bash
     // label 'Molecule_Slave'
+    any
   }
 
   stages {
