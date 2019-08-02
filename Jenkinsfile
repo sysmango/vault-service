@@ -1,6 +1,7 @@
 pipeline {
 
-  agent {
+  agent any
+  //{
     // Node setup : minimal centos7, plugged into Jenkins, and
     // git config --global http.sslVerify false
     // sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
@@ -8,8 +9,8 @@ pipeline {
     // git config --global http.sslVerify false
     // sudo curl -fsSL get.docker.com | bash
     // label 'Molecule_Slave'
-    any
-  }
+    
+  //}
 
   stages {
 
