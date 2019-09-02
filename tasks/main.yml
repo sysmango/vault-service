@@ -2,7 +2,7 @@
 - name: Download HashiCorp Vault
   connection: local
   get_url:
-    url: https://releases.hashicorp.com/vault/1.2.0/vault_1.2.2_linux_arm.zip
+    url: https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_arm.zip
     dest: /tmp/vault_1.2.2_linux_arm.zip
 
 - name: Unarchive HashiCorp Vault
