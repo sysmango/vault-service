@@ -14,7 +14,7 @@
 - name: Deploy vault to /usr/local/sbin
   copy:
     src: /tmp/vault
-    dest: /usr/local/bin/vault
+    dest: /usr/local/sbin/vault
     mode: 0644
 
 - name: make sure /etc/vault exits
