@@ -1,38 +1,21 @@
 ---
-# tasks file for vault-service
-
-- name: Make sure unzip is installed
-  package:
-    name: unzip
-    state: present
-
-- name: Create temp directory for copy
-  file:
-    path: /tmp/vault
-    state: directory
-    mode: '0777'
+- name: Download HashiCorp Vault
+  connection: local
+  get_url:
+    url: https://releases.hashicorp.com/vault/1.2.0/vault_1.2.2_linux_arm.zip
+    dest: /tmp/vault_1.2.2_linux_arm.zip
 
 - name: Unarchive HashiCorp Vault
+  connection: local
   unarchive:
-    src: https://releases.hashicorp.com/vault/1.2.0/vault_1.2.0_linux_arm.zip
-    dest: /tmp/vault
-    remote_src: true
-
-- name: stop vault.service
-  become: true
-  systemd:
-    name: vault.service
-    daemon_reload: true
-    enabled: true
-    masked: false
-    state: stopped
+    src: /tmp/vault_1.2.2_linux_arm.zip
+    dest: /tmp
 
 - name: Deploy vault to /usr/local/sbin
   copy:
     src: /tmp/vault
-    dest: /usr/local/sbin/vault
+    dest: /usr/local/bin/vault
     mode: 0644
-    remote_src: true
 
 - name: make sure /etc/vault exits
   file:
@@ -65,7 +48,7 @@
 - name: enable vault.service
   systemd:
     name: vault.service
-    daemon_reload: true
-    enabled: true
-    masked: false
+    daemon_reload: yes
+    enabled: yes
+    masked: no
     state: started
