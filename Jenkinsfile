@@ -127,41 +127,6 @@ pipeline {
                   }                  
                 }
             }
-            stage('Create archive and upload') {
-                  steps{
-                        zip archive: true, dir: '', glob: '', zipFile: 'vault-service.zip'
-                        nexusArtifactUploader(
-                              nexusVersion: 'nexus3',
-                              protocol: 'http',
-                              nexusUrl: 'nexus.sysmango.net',
-                              groupId: 'production',
-                              version: '1.0.0.$BUILD_NUMBER',
-                              repository: 'ansible',
-                              credentialsId: 'nexus-creds',
-                              artifacts: [
-                                    [artifactId: 'vault-service',
-                                    classifier: '',
-                                    file: 'vault-service.zip',
-                                    type: 'zip']
-                              ]
-                        )
-                        nexusArtifactUploader(
-                              nexusVersion: 'nexus3',
-                              protocol: 'http',
-                              nexusUrl: 'nexus.sysmango.net',
-                              groupId: 'production',
-                              version: 'latest',
-                              repository: 'ansible',
-                              credentialsId: 'nexus-creds',
-                              artifacts: [
-                                    [artifactId: 'vault-service',
-                                    classifier: '',
-                                    file: 'vault-service.zip',
-                                    type: 'zip']
-                              ]
-                        )
-                  }
-            }
       }
       post { 
         unstable { 
