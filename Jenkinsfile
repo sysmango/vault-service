@@ -1,5 +1,5 @@
 pipeline {
-   agent{any}
+   agent any
       stages{
             /* tests for ansible scripts */
             /* YAML linter */
