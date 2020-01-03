@@ -1,5 +1,4 @@
 pipeline {
-      agent { label 'espresso' } 
 
       stages{
             /* tests for ansible scripts */
